@@ -19,6 +19,7 @@ const db_url = process.env.DBURL
 //     next()
 // })
 app.use(express.static('public'))
+app.use(express.urlencoded({extended:true}))
 // mongoDB connection
 const connect = () => {
   mongoose.connect(db_url)
@@ -33,26 +34,26 @@ const connect = () => {
 
 // TESTING AWA MODEL AND DB
 // for saving 2d DB
-// app.get('/add-trainee', async (req, res) => {
-//   const TRAINEES = new Trainees({
-//     name: 'Eggys',
-//     profession: 'Mern stack',
-//     description: 'He codes and instructs',
-//   })
-//   // TRAINEES.save()
-//   // .then((result)=>{
-//   //     res.send(result)
-//   // })
-//   // .catch((err)=>{
-//   //     console.log(err);
-//   // })
-//   try {
-//     const savedTrainees = await TRAINEES.save()
-//     res.send(savedTrainees)
-//   } catch (err) {
-//     console.log(err)
-//   }
-// })
+app.get('/add-trainee', async (req, res) => {
+  const TRAINEES = new Trainees({
+    name: 'Sam',
+    profession: 'fron end',
+    description: 'He sabi code',
+  })
+  // TRAINEES.save()
+  // .then((result)=>{
+  //     res.send(result)
+  // })
+  // .catch((err)=>{
+  //     console.log(err);
+  // })
+  try {
+    const savedTrainees = await TRAINEES.save()
+    res.send(savedTrainees)
+  } catch (err) {
+    console.log(err)
+  }
+})
 
 // for getting all info from d DB
 // app.get('/all-trainees',async(req,res)=>{
@@ -119,7 +120,25 @@ app.get('/todos',async(req,res)=>{
 
 })
 
+app.post('/todos', (req,res)=>{
+  console.log(req.body);
+  
+  const savedTrainee = new Trainees(req.body)
+  savedTrainee.save()
+  .then((result)=>{
+    res.redirect('/todos')
+   
+
+  })
+  .catch((err)=>{
+    console.log(err);
+  })
+  
+
+})
+
 app.get('/todo/create', (req, res) => {
+  
   res.render('createList', { title: 'EJS create-todo Page' })
 })
 app.use((req, res) => {
