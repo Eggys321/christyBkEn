@@ -35,9 +35,9 @@ const connect = () => {
 // for saving 2d DB
 // app.get('/add-trainee', async (req, res) => {
 //   const TRAINEES = new Trainees({
-//     name: 'Sam',
-//     profession: 'Product manager',
-//     description: 'He dey code always',
+//     name: 'Eggys',
+//     profession: 'Mern stack',
+//     description: 'He codes and instructs',
 //   })
 //   // TRAINEES.save()
 //   // .then((result)=>{
