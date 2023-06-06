@@ -32,11 +32,12 @@ const connect = () => {
 //   .catch((err) => console.log(err))
 
 // TESTING AWA MODEL AND DB
+// for saving 2d DB
 app.get('/add-trainee', async (req, res) => {
   const TRAINEES = new Trainees({
-    name: 'John',
-    profession: 'Senior desktop dev',
-    description: 'He dey code v.well!',
+    name: 'Sam',
+    profession: 'Product manager',
+    description: 'He dey code always',
   })
   // TRAINEES.save()
   // .then((result)=>{
@@ -52,6 +53,43 @@ app.get('/add-trainee', async (req, res) => {
     console.log(err)
   }
 })
+// for getting all info from d DB
+app.get('/all-trainees',async(req,res)=>{
+  try {
+    const allTrainees = await Trainees.find()
+    res.send(allTrainees)
+  } catch (err) {
+    console.log(err)
+  }
+  // .then((results)=>{
+  //   res.send(results)
+
+  // })
+  // .catch((err)=>{
+  //   console.log(err);
+  // })
+})
+// To get a single trainee
+app.get('/single-trainee',async(req,res)=>{
+  try{
+    const singleTrainee = await Trainees.findById('647df2eb997cd86341fb583b')
+    res.send(singleTrainee)
+
+  }
+  catch(err){
+    console.log(err);
+
+  }
+  // Trainees.findById('647df2eb997cd86341fb583b')
+  //   .then((result) => {
+  //     res.send(result)
+  //   })
+  //   .catch((err) => {
+  //     console.log(err)
+  //   })
+  
+})
+
 // routes
 const trainees = [
   { name: 'Christy', profession: 'front-end dev' },
