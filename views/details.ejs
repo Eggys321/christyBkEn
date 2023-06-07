@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs')  %>
+<body>
+    <%- include('../partials/nav.ejs')  %>
+
+ 
+   <div>
+      <h2><%= trainees.name %></h2>
+      <div>
+       <p><%= trainees.description %></p>
+      </div>
+              <a href="/todos/delete/<%= trainees._id %>">delete</a>
+              <!-- <a href="/todos/edit/<%= trainees._id %>">edit</a> -->
+
+    </div>
+   
+    
+
+    <%- include('../partials/footer.ejs')  %>
+    
+</body>
+</html>

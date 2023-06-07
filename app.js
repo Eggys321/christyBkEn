@@ -19,7 +19,7 @@ const db_url = process.env.DBURL
 //     next()
 // })
 app.use(express.static('public'))
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }))
 // mongoDB connection
 const connect = () => {
   mongoose.connect(db_url)
@@ -89,7 +89,7 @@ app.get('/add-trainee', async (req, res) => {
 //   //   .catch((err) => {
 //   //     console.log(err)
 //   //   })
-  
+
 // })
 
 // routes
@@ -108,37 +108,61 @@ app.get('/about', (req, res) => {
 })
 
 // todo routes
-app.get('/todos',async(req,res)=>{
- try {
+app.get('/todos', async (req, res) => {
+  try {
     const allTrainees = await Trainees.find()
 
-      res.render('index', { title: 'EJS Home Page',trainees:allTrainees })
-
+    res.render('index', { title: 'EJS Home Page', trainees: allTrainees })
   } catch (err) {
     console.log(err)
   }
-
 })
 
-app.post('/todos', (req,res)=>{
-  console.log(req.body);
-  
+app.post('/todos', (req, res) => {
+  console.log(req.body)
+
   const savedTrainee = new Trainees(req.body)
-  savedTrainee.save()
-  .then((result)=>{
+  savedTrainee
+    .save()
+    .then((result) => {
+      res.redirect('/todos')
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+})
+// delete route
+app.get('/todos/delete/:id', (req, res) => {
+  Trainees.findByIdAndDelete(req.params.id).then((result) => {
     res.redirect('/todos')
-   
-
   })
-  .catch((err)=>{
-    console.log(err);
-  })
-  
-
+})
+// edit route
+// app.get('/todos/edit/:id', (req, res) => {
+//    const id = req.params.id
+//    console.log(id)
+//    Trainees.findById(id)
+//      .then((result) => {
+//        res.render('edit', { trainees: result})
+//      })
+//      .catch((error) => {
+//        console.log(error)
+//      })
+// })
+// specific post,params
+app.get('/todos/:id', (req, res) => {
+  const id = req.params.id
+  console.log(id)
+  Trainees.findById(id)
+    .then((result) => {
+      res.render('details', { trainees: result, title: 'Blog Details' })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
 })
 
 app.get('/todo/create', (req, res) => {
-  
   res.render('createList', { title: 'EJS create-todo Page' })
 })
 app.use((req, res) => {

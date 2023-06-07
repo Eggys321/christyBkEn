@@ -9,10 +9,14 @@
       <h2 >Welcome to my ejs home page</h2>
       <hr />
       <% if(trainees.length) {%> 
-        <% trainees.map((trainee)=>{%>
+        <% trainees.map((trainee,index)=>{%>
       <div class="section-mapped-data">
-        <h1><%= trainee.name %></h1>
+       <a href="/todos/<%= trainee.id  %>">
+         <h1><%= trainee.name %></h1>
         <h3><%= trainee.profession %></h3>
+        <p> <%= trainee._id  %> </p>
+        <p><%= index  %></p>
+       </a>
         <!-- <img src="<%= trainee.description  %> " alt=""> -->
       </div>
 
