@@ -109,7 +109,7 @@ app.get('/about', (req, res) => {
 })
 
 // todo routes
-app.use(blogRouters)
+app.use('/todos',blogRouters)
 
 app.use((req, res) => {
   res.status(404).render('404', { title: 'EJS Error' })
